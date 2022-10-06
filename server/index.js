@@ -13,7 +13,7 @@ const storeItems = new Map([
     [2, { priceInCents: 20000, name: "Learn CSS Today" }],
   ])
 
-app.post("/stripe-session", async (req,res) => {
+app.post("/stripe-demo", async (req,res) => {
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -36,6 +36,13 @@ app.post("/stripe-session", async (req,res) => {
         })
         res.json({url: session.url})
     } catch (error) {
-        res.status(500).json({error:e.message})
+        res.status(500).json({error:error.message})
     }
 })
+
+try {
+    app.listen(3000)
+    console.log('app listening on port 3000')
+} catch (error) {
+    console.log(error)
+}
